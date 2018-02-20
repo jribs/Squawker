@@ -13,39 +13,34 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-package android.example.com.squawker.following;
+package android.example.com.squawker.following
 
-import android.example.com.squawker.R;
-import android.os.Bundle;
-import android.support.v4.app.NavUtils;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
-import android.view.MenuItem;
+import android.example.com.squawker.R
+import android.os.Bundle
+import android.support.v4.app.NavUtils
+import android.support.v7.app.AppCompatActivity
+import android.view.MenuItem
 
 /**
  * Displays an activity for who you are following
  */
-public class FollowingPreferenceActivity extends AppCompatActivity {
+class FollowingPreferenceActivity : AppCompatActivity() {
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_settings);
-        ActionBar actionBar = this.getSupportActionBar();
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_settings)
+        val actionBar = this.supportActionBar
 
         // Set the action bar back button to look like an up button
-        if (actionBar != null) {
-            actionBar.setDisplayHomeAsUpEnabled(true);
-        }
+        actionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        val id = item.itemId
         // When the home button is pressed, take the user back to the MainActivity
         if (id == android.R.id.home) {
-            NavUtils.navigateUpFromSameTask(this);
+            NavUtils.navigateUpFromSameTask(this)
         }
-        return super.onOptionsItemSelected(item);
+        return super.onOptionsItemSelected(item)
     }
 }

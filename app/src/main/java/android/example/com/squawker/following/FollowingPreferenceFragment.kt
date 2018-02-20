@@ -13,23 +13,25 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-package android.example.com.squawker.following;
+package android.example.com.squawker.following
 
-import android.example.com.squawker.R;
-import android.os.Bundle;
-import android.support.v7.preference.PreferenceFragmentCompat;
+import android.example.com.squawker.R
+import android.os.Bundle
+import android.support.v7.preference.PreferenceFragmentCompat
 
 
 /**
  * Shows the list of instructors you can follow
  */
-public class FollowingPreferenceFragment extends PreferenceFragmentCompat {
+class FollowingPreferenceFragment : PreferenceFragmentCompat() {
 
-    private final static String LOG_TAG = FollowingPreferenceFragment.class.getSimpleName();
-
-    @Override
-    public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
+    override fun onCreatePreferences(savedInstanceState: Bundle, rootKey: String) {
         // Add visualizer preferences, defined in the XML file in res->xml->preferences_squawker
-        addPreferencesFromResource(R.xml.following_squawker);
+        addPreferencesFromResource(R.xml.following_squawker)
+    }
+
+    companion object {
+
+        private val LOG_TAG = FollowingPreferenceFragment::class.java.simpleName
     }
 }
