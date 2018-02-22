@@ -15,23 +15,46 @@
 */
 package android.example.com.squawker.following
 
+import android.content.SharedPreferences
 import android.example.com.squawker.R
 import android.os.Bundle
 import android.support.v7.preference.PreferenceFragmentCompat
+import android.support.v7.preference.SwitchPreferenceCompat
+import android.util.Log
+import com.google.firebase.messaging.FirebaseMessaging
 
 
-/**
- * Shows the list of instructors you can follow
- */
-class FollowingPreferenceFragment : PreferenceFragmentCompat() {
+class FollowingPreferenceFragment : PreferenceFragmentCompat(), SharedPreferences.OnSharedPreferenceChangeListener{
 
-    override fun onCreatePreferences(savedInstanceState: Bundle, rootKey: String) {
-        // Add visualizer preferences, defined in the XML file in res->xml->preferences_squawker
-        addPreferencesFromResource(R.xml.following_squawker)
+    //Lifecycle
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        preferenceScreen.sharedPreferences.registerOnSharedPreferenceChangeListener(this)
     }
 
-    companion object {
+    override fun onDestroy() {
+        preferenceScreen.sharedPreferences.unregisterOnSharedPreferenceChangeListener(this)
+        super.onDestroy()
+    }
 
-        private val LOG_TAG = FollowingPreferenceFragment::class.java.simpleName
+
+
+//Preference Functions
+    override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
+        // Add visualizer preferences, defined in the XML file in res->xml->preferences_squawker
+        addPreferencesFromResource(R.xml.following_squawker)
+
+    }
+
+    override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences, key: String) {
+        val preference = findPreference(key)
+        if(preference!=null && preference is SwitchPreferenceCompat) {
+            if (sharedPreferences.getBoolean(key, false)) {
+                FirebaseMessaging.getInstance().subscribeToTopic(key)
+                Log.d("pref", "Subscribing to " + key);
+            } else {
+                FirebaseMessaging.getInstance().unsubscribeFromTopic(key)
+            }
+        }
     }
 }

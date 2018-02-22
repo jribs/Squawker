@@ -5,7 +5,7 @@ import com.google.firebase.iid.FirebaseInstanceId
 import com.google.firebase.iid.FirebaseInstanceIdService
 
 
-class SquawkInstanceIDService : FirebaseInstanceIdService(){
+class SquawkInstanceIDService: FirebaseInstanceIdService(){
 
     init {
         Log.d(this.javaClass.simpleName, "I started")

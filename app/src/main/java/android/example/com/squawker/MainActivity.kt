@@ -85,11 +85,6 @@ class MainActivity : AppCompatActivity(), LoaderManager.LoaderCallbacks<Cursor> 
         return super.onOptionsItemSelected(item)
     }
 
-
-    /**
-     * Loader callbacks
-     */
-
     override fun onCreateLoader(id: Int, args: Bundle?): Loader<Cursor> {
         // This method generates a selection off of only the current followers
         val selection = SquawkContract.createSelectionForCurrentFollowers(
@@ -108,7 +103,6 @@ class MainActivity : AppCompatActivity(), LoaderManager.LoaderCallbacks<Cursor> 
     }
 
     companion object {
-
         private val LOG_TAG = MainActivity::class.java.getSimpleName()
         private val LOADER_ID_MESSAGES = 0
 
